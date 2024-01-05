@@ -1,7 +1,7 @@
 name: build_parsed_article
 on:
   push:
-    branches: ['ocr_patch']
+    branches: ['ocr_patch', 'ocr_cache']
 
 permissions:
   contents: write
