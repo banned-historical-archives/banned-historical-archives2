@@ -41,7 +41,7 @@ jobs:
       - run: git config --global http.postBuffer 2097152000
       - run: git config --global user.email "you@example.com"
       - run: git config --global user.name "Your Name"
-
+      - run: git config --global credential.helper '!f() { sleep 1; echo "username=git token=${{ secrets.GH_PAT }}"; }; f'
       - name: Check for changes
         id: check_changes
         run: |
@@ -61,5 +61,3 @@ jobs:
           cd ./parsed_article
           git add .
           git commit -m automation && git push
-  call-workflow:
-    uses: banned-historical-archives/banned-historical-archives2/.github/workflows/build_tags.yml@parsed_article
