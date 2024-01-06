@@ -1,8 +1,8 @@
-name: build_ocr_cache
+name: build_parsed_article
 on:
   workflow_dispatch:
   push:
-    branches: ['ocr_config']
+    branches: ['ocr_patch', 'ocr_cache']
 
 permissions:
   contents: write
@@ -11,19 +11,13 @@ permissions:
   actions: write
 
 jobs:
-  container-job:
+  build_parsed_article:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/banned-historical-archives/ocr:main
     steps:
       - uses: actions/checkout@v4
         with:
           repository: 'banned-historical-archives/ocr_helper'
           path: './ocr_helper'
-          ref: 'main'
-      - uses: actions/checkout@v4
-        with:
-          path: './raw'
           ref: 'main'
       - uses: actions/checkout@v4
         with:
@@ -33,11 +27,19 @@ jobs:
         with:
           path: './ocr_cache'
           ref: 'ocr_cache'
+      - uses: actions/checkout@v4
+        with:
+          path: './ocr_patch'
+          ref: 'ocr_patch'
+      - uses: actions/checkout@v4
+        with:
+          path: './parsed_article'
+          ref: 'parsed_article'
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - run: cd ocr_helper && npm install && npm run build_ocr_cache -- ../ocr_config ../raw ../ocr_cache
+      - run: cd ocr_helper && npm install && npm run build_parsed_article -- ../ocr_config ../ocr_cache ../ocr_patch ../parsed_article
       - run: git config --global http.postBuffer 2097152000
       - run: git config --global user.email "you@example.com"
       - run: git config --global user.name "Your Name"
@@ -45,24 +47,32 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          cd ocr_cache
+          cd parsed_article
           git status --porcelain
           if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit"
-            echo "::set-output name=changes::false"
+            echo "changes=false" >> "$GITHUB_OUTPUT"
           else
             echo "Changes detected"
-            echo "::set-output name=changes::true"
+            echo "changes=true" >> "$GITHUB_OUTPUT"
           fi
       
       - name: Commit and push changes
         if: steps.check_changes.outputs.changes == 'true'
         run: |
-          cd ./ocr_cache
+          cd ./parsed_article
           git add .
           git commit -m automation && git push
       - name: Invoke workflow
         uses: benc-uk/workflow-dispatch@v1
+        if: steps.check_changes.outputs.changes == 'true'
         with:
-          workflow: build_parsed_article.yml
-          ref: ocr_cache
+          workflow: build_tags.yml
+          ref: parsed_article
+      - name: Invoke workflow
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build.yml
+          ref: master
+          repo: banned-historical-archives/banned-historical-archives.github.io
