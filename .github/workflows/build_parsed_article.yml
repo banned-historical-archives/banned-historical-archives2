@@ -53,8 +53,9 @@ jobs:
           else
             echo "Changes detected"
             echo "::set-output name=changes::true"
+            git add .
+            git commit -m automation
           fi
-      
       - name: Push changes
         if: steps.check_changes.outputs.changes == 'true'
         uses: ad-m/github-push-action@master
