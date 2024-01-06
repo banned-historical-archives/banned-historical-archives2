@@ -65,6 +65,6 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         if: steps.check_changes.outputs.changes == 'true'
         with:
-          workflow: build_tags.yaml
+          workflow: build_tags.yml
           ref: parsed_article
           repo: ${{ github.repository }}
