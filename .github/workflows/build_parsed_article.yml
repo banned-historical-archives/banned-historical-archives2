@@ -67,4 +67,3 @@ jobs:
         with:
           workflow: build_tags.yml
           ref: parsed_article
-          repo: ${{ github.repository }}
