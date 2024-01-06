@@ -61,7 +61,6 @@ jobs:
           cd ./parsed_article
           git add .
           git commit -m automation && git push
-          - name: Invoke workflow in another repo with inputs
       - name: Invoke workflow
         uses: benc-uk/workflow-dispatch@v1
         if: steps.check_changes.outputs.changes == 'true'
