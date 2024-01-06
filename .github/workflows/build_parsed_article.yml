@@ -41,7 +41,7 @@ jobs:
       - run: git config --global http.postBuffer 2097152000
       - run: git config --global user.email "you@example.com"
       - run: git config --global user.name "Your Name"
-      - run: cd parsed_article && git status
+
       - name: Check for changes
         id: check_changes
         run: |
@@ -53,13 +53,13 @@ jobs:
           else
             echo "Changes detected"
             echo "::set-output name=changes::true"
-            git add .
-            git commit -m automation
           fi
-      - name: Push changes
+      
+      - name: Commit and push changes
         if: steps.check_changes.outputs.changes == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_PAT }}
-          branch: parsed_article
-          directory: parsed_article
+        run: |
+          cd ./parsed_article
+          git add .
+          git commit -m automation && git push
+  call-workflow:
+    uses: banned-historical-archives/banned-historical-archives2/.github/workflows/build_tags.yml@parsed_article
