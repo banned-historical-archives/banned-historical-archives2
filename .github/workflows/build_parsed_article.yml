@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 jobs:
-  container-job:
+  build_parsed_article:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,4 +61,6 @@ jobs:
           cd ./parsed_article
           git add .
           git commit -m automation && git push
-      - uses: ${{ github.actor }}/${{github.repositry}}/.github/workflows/build_tags.yml@parsed_article
+  call-workflow:
+    needs: build_parsed_article
+    uses: ${{ github.actor }}/${{github.repositry}}/.github/workflows/build_tags.yml@parsed_article
