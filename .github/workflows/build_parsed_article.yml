@@ -11,8 +11,6 @@ permissions:
 jobs:
   build_parsed_article:
     runs-on: ubuntu-latest
-    outputs:
-      changes: ${{ steps.check_changes.outputs.changes }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -63,8 +61,11 @@ jobs:
           cd ./parsed_article
           git add .
           git commit -m automation && git push
-  call-workflow:
-    if: needs.build_parsed_article.outputs.changes == 'true'
-    needs: build_parsed_article
-    uses: ${{ github.repository }}/.github/workflows/build_tags.yml@parsed_article
-    #uses: banned-historical-archives/banned-historical-archives2/.github/workflows/build_tags.yml@parsed_article
+          - name: Invoke workflow in another repo with inputs
+      - name: Invoke workflow
+        uses: benc-uk/workflow-dispatch@v1
+        if: steps.check_changes.outputs.changes == 'true'
+        with:
+          workflow: build_tags.yaml
+          ref: parsed_article
+          repo: ${{ github.repository }}
