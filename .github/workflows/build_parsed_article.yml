@@ -11,6 +11,8 @@ permissions:
 jobs:
   build_parsed_article:
     runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.check_changes.outputs.changes }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,10 +51,10 @@ jobs:
           git status --porcelain
           if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit"
-            echo "::set-output name=changes::false"
+            echo "changes=false" >> "$GITHUB_OUTPUT"
           else
             echo "Changes detected"
-            echo "::set-output name=changes::true"
+            echo "changes=true" >> "$GITHUB_OUTPUT"
           fi
       
       - name: Commit and push changes
@@ -62,7 +64,7 @@ jobs:
           git add .
           git commit -m automation && git push
   call-workflow:
-    if: steps.check_changes.outputs.changes == 'true'
+    if: needs.build_parsed_article.outputs.changes == 'true'
     needs: build_parsed_article
     #uses: ${{ github.repository }}/.github/workflows/build_tags.yml@parsed_article
     uses: banned-historical-archives/banned-historical-archives2/.github/workflows/build_tags.yml@parsed_article
