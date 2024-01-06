@@ -55,10 +55,10 @@ jobs:
             echo "::set-output name=changes::true"
           fi
       
-      - name: Commit and push changes
+      - name: Push changes
         if: steps.check_changes.outputs.changes == 'true'
-        run: |
-          cd ./parsed_article
-          git add .
-          git commit -m automation
-          git push https://${{secrets.GH_PAT}}@github.com/${{ github.actor }}/${{ github.repository }}.git
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          branch: ${{ github.ref }}
+          directory: ./parsed_article
