@@ -1,5 +1,6 @@
 name: build_parsed_article
 on:
+  workflow_dispatch:
   push:
     branches: ['ocr_patch', 'ocr_cache']
 
@@ -68,3 +69,10 @@ jobs:
         with:
           workflow: build_tags.yml
           ref: parsed_article
+      - name: Invoke workflow
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build.yml
+          ref: master
+          repo: banned-historical-archives/banned-historical-archives.github.io
