@@ -294,5 +294,6 @@ export default {
   },
   "parser_id": "automation",
   "path": "/archives2/96a05f33-7f74-44c3-a260-72f9e23c2302.pdf",
-  "resource_type": "book"
+  "resource_type": "book",
+  "version": 2
 }

@@ -177,5 +177,6 @@ export default {
   },
   "parser_id": "automation",
   "path": "/archives2/81074a7f-b51c-4172-a0ec-4700eaaf3463.pdf",
-  "resource_type": "book"
+  "resource_type": "book",
+  "version": 2
 }
