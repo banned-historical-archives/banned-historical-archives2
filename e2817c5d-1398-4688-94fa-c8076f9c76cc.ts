@@ -222,5 +222,6 @@ export default {
     "ocr_exceptions": {}
   },
   "parser_id": "automation",
-  "path": "/archives2/e2817c5d-1398-4688-94fa-c8076f9c76cc.pdf"
+  "path": "/archives2/e2817c5d-1398-4688-94fa-c8076f9c76cc.pdf",
+  "resource_type": "book"
 }
