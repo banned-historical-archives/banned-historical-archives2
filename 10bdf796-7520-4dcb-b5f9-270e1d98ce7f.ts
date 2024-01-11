@@ -400,7 +400,7 @@ export default {
     "ocr_exceptions": {}
   },
   "parser_id": "automation",
-  "path": "/archives2/10bdf796-7520-4dcb-b5f9-270e1d98ce7f.pdf",
+  "path": "10bdf796-7520-4dcb-b5f9-270e1d98ce7f.pdf",
   "resource_type": "book",
   "version": 2
 }

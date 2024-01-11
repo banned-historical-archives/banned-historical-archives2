@@ -208,7 +208,7 @@ export default {
     "ocr_exceptions": {}
   },
   "parser_id": "automation",
-  "path": "/archives2/ec0208fc-d9f3-495f-bacd-73df3b8450a3.pdf",
+  "path": "ec0208fc-d9f3-495f-bacd-73df3b8450a3.pdf",
   "resource_type": "book",
   "version": 2
 }

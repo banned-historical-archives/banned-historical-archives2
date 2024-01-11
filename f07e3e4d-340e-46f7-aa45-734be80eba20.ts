@@ -369,7 +369,7 @@ export default {
     "ocr_exceptions": {}
   },
   "parser_id": "automation",
-  "path": "/archives2/f07e3e4d-340e-46f7-aa45-734be80eba20.pdf",
+  "path": "f07e3e4d-340e-46f7-aa45-734be80eba20.pdf",
   "resource_type": "book",
   "version": 2
 }

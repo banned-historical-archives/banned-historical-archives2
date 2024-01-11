@@ -295,7 +295,7 @@ export default {
     "ocr_exceptions": {}
   },
   "parser_id": "automation",
-  "path": "/archives2/6aa13c1f-4589-40e0-b7fd-13d16d8b3f1b.pdf",
+  "path": "6aa13c1f-4589-40e0-b7fd-13d16d8b3f1b.pdf",
   "resource_type": "book",
   "version": 2
 }

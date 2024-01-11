@@ -199,7 +199,7 @@ export default {
     }
   },
   "parser_id": "automation",
-  "path": "/archives2/a13a4008-5f3a-4f1d-8e0b-940a1c633cd5.pdf",
+  "path": "a13a4008-5f3a-4f1d-8e0b-940a1c633cd5.pdf",
   "resource_type": "book",
   "version": 2
 }
