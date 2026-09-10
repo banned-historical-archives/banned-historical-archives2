@@ -24,8 +24,9 @@ export default {
         "page_end": 14,
         "dates": [
           {
-            "year": 1,
-            "month": 2
+            "day": 1,
+            "month": 2,
+            "year": 1976
           }
         ]
       },
